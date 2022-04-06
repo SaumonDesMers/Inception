@@ -5,7 +5,7 @@ services:
     mysql:
         image: mariadb
         volumes:
-            - ./volumes/mysql:/var/lib/mysql
+            - /home/sgaubert/data/mysql:/var/lib/mysql
         environment:
             MYSQL_ROOT_PASSWORD: mysql_root_pass
             MYSQL_DATABASE: db_name
@@ -16,7 +16,7 @@ services:
     wordpress:
         image: wordpress:php7.3-fpm-alpine
         volumes:
-            - ./volumes/wordpress:/var/www/html
+            - /home/sgaubert/data/wordpress:/var/www/html
         depends_on:
             - mysql
         environment:
@@ -34,8 +34,9 @@ services:
         image: nginx:alpine
         volumes:
             - ./requirements/nginx:/etc/nginx/conf.d
-            - ./volumes/wordpress:/var/www/html
+            - /home/sgaubert/data/wordpress:/var/www/html
         ports:
             - 8080:80
         links:
             - wordpress
+        restart: always
