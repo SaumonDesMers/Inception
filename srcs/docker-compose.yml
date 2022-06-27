@@ -26,8 +26,6 @@ services:
             WORDPRESS_DB_USER: user_name
             WORDPRESS_DB_PASSWORD: user_pass
             WORDPRESS_TABLE_PREFIX: wp_
-        links:
-            - mysql
         restart: always
 
     nginx:
@@ -40,3 +38,7 @@ services:
         links:
             - wordpress
         restart: always
+
+# networks:
+#     inception_network:
+#         driver: bridge
