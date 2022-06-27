@@ -3,16 +3,16 @@ SRC		= srcs/docker-compose.yml
 all:	build up
 
 build:
-			sudo docker-compose -f $(SRC) build
+			docker-compose -f $(SRC) build
 
 up:
-			sudo docker-compose -f $(SRC) up
+			docker-compose -f $(SRC) up
 
 stop:
-			sudo docker-compose -f $(SRC) stop
+			docker-compose -f $(SRC) stop
 rm:		stop
-			sudo docker-compose -f $(SRC) down
-			sudo docker system prune -a
+			docker-compose -f $(SRC) down
+			docker system prune -a
 
 
 re:		rm build up

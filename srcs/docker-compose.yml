@@ -3,42 +3,59 @@ version: '3'
 services:
 
     mysql:
-        image: mariadb
+        build: ./requirements/mariadb
         volumes:
-            - /home/sgaubert/data/mysql:/var/lib/mysql
-        environment:
-            MYSQL_ROOT_PASSWORD: mysql_root_pass
-            MYSQL_DATABASE: db_name
-            MYSQL_USER: user_name
-            MYSQL_PASSWORD: user_pass
+            - mysql:/var/lib/mysql
+        env_file:
+            - .env
         restart: always
+        ports:
+            - 3306:3306
+        networks:
+            - inception_network
 
     wordpress:
-        image: wordpress:php7.3-fpm-alpine
+        build: ./requirements/wordpress
+
         volumes:
-            - /home/sgaubert/data/wordpress:/var/www/html
+            - wordpress:/var/www/html
+        env_file:
+            - .env
         depends_on:
             - mysql
-        environment:
-            WORDPRESS_DB_HOST: mysql
-            MYSQL_ROOT_PASSWORD: mysql_root_pass
-            WORDPRESS_DB_NAME: db_name
-            WORDPRESS_DB_USER: user_name
-            WORDPRESS_DB_PASSWORD: user_pass
-            WORDPRESS_TABLE_PREFIX: wp_
         restart: always
+        ports:
+            - 9000:9000
+        networks:
+            - inception_network
 
     nginx:
-        image: nginx:alpine
+        build: ./requirements/nginx
         volumes:
             - ./requirements/nginx:/etc/nginx/conf.d
-            - /home/sgaubert/data/wordpress:/var/www/html
-        ports:
-            - 8080:80
+            - wordpress:/var/www/html
         links:
             - wordpress
         restart: always
+        ports:
+            - 443:443
+        networks:
+            - inception_network
 
-# networks:
-#     inception_network:
-#         driver: bridge
+networks:
+    inception_network:
+        driver: bridge
+
+volumes:
+    mysql:
+        driver: local
+        driver_opts:
+            type: none
+            device: /home/sgaubert/data/mysql
+            o: bind
+    wordpress:
+        driver: local
+        driver_opts:
+            type: none
+            device: /home/sgaubert/data/wordpress
+            o: bind
