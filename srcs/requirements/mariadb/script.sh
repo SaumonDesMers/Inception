@@ -10,4 +10,4 @@ EOF
 cat tmp_file
 
 mysqld < tmp_file
-usr/bin/mysqld_safe --datadir=/var/lib/mysql
+exec usr/bin/mysqld_safe --datadir=/var/lib/mysql

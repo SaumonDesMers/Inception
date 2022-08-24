@@ -6,6 +6,8 @@ build:
 			docker-compose -f $(SRC) build
 
 up:
+			mkdir -p ~/data/mysql
+			mkdir -p ~/data/wordpress
 			docker-compose -f $(SRC) up
 
 stop:
