@@ -1,4 +1,4 @@
-version: '3'
+version: '3.9'
 
 services:
 
@@ -8,9 +8,7 @@ services:
             - mysql:/var/lib/mysql
         env_file:
             - .env
-        restart: always
-        ports:
-            - 3306:3306
+        restart: unless-stopped
         networks:
             - inception_network
 
@@ -23,9 +21,7 @@ services:
             - .env
         depends_on:
             - mysql
-        restart: always
-        ports:
-            - 9000:9000
+        restart: unless-stopped
         networks:
             - inception_network
 
@@ -36,9 +32,9 @@ services:
             - wordpress:/var/www/html
         links:
             - wordpress
-        restart: always
+        restart: unless-stopped
         ports:
-            - 443:443
+            - "443:443"
         networks:
             - inception_network
 
