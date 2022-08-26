@@ -1,14 +1,11 @@
 SRC		= srcs/docker-compose.yml
 
-all:	build up
-
-build:
-			docker-compose -f $(SRC) build
+all:	up
 
 up:
 			mkdir -p ~/data/mysql
 			mkdir -p ~/data/wordpress
-			docker-compose -f $(SRC) up
+			docker-compose -f $(SRC) up --build
 
 stop:
 			docker-compose -f $(SRC) stop
@@ -17,6 +14,6 @@ rm:		stop
 			docker system prune -a
 
 
-re:		rm build up
+re:		rm up
 
-.PHONY: all build up stop rm
+.PHONY: all up stop rm
