@@ -2,7 +2,7 @@ echo checkpoint 1
 wp core download --allow-root
 
 echo checkpoint 2
-until mysqladmin -hmysql -usgaubert -ppassword ping
+until mysqladmin -hmysql -usgaubert -ppassword ping;
 do
 	echo "waiting to connect..."
 	sleep 1

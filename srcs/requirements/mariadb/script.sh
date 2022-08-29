@@ -1,3 +1,5 @@
+#!/bin/bash
+
 touch tmp_file
 chmod 755 tmp_file
 
@@ -10,7 +12,9 @@ GRANT ALL ON *.* TO 'sgaubert'@'%' IDENTIFIED BY 'password' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
 EOF
 
+# mysql --execute="SHOW DATABASES;"
+
 cat tmp_file
 
-mysqld --user=mysql --verbose < tmp_file
-exec mysqld_safe
+mysqld --user=mysql --verbose --bootstrap < tmp_file
+exec mysqld

@@ -11,6 +11,8 @@ services:
         restart: unless-stopped
         networks:
             - inception_network
+        volumes:
+            - wordpress:/var/www/html
 
     wordpress:
         build: ./requirements/wordpress
@@ -34,7 +36,7 @@ services:
             - wordpress
         restart: unless-stopped
         ports:
-            - "80:80"
+            - "443:443"
         networks:
             - inception_network
 
@@ -47,11 +49,11 @@ volumes:
         driver: local
         driver_opts:
             type: none
-            device: /home/sgaubert/data/mysql
+            device: ~/data/mysql
             o: bind
     wordpress:
         driver: local
         driver_opts:
             type: none
-            device: /home/sgaubert/data/wordpress
+            device: ~/data/wordpress
             o: bind
