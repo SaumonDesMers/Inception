@@ -5,20 +5,18 @@ services:
     mysql:
         build: ./requirements/mariadb
         volumes:
-            - mysql:/var/lib/mysql
+            - dbdata:/var/lib/mysql
         env_file:
             - .env
         restart: unless-stopped
         networks:
             - inception_network
-        volumes:
-            - wordpress:/var/www/html
 
     wordpress:
         build: ./requirements/wordpress
 
         volumes:
-            - wordpress:/var/www/html
+            - wpdata:/var/www/html
         env_file:
             - .env
         depends_on:
@@ -30,13 +28,15 @@ services:
     nginx:
         build: ./requirements/nginx
         volumes:
-            - ./requirements/nginx:/etc/nginx/conf.d
-            - wordpress:/var/www/html
-        links:
-            - wordpress
+        #    - ./requirements/nginx:/etc/nginx/conf.d
+            - wpdata:/var/www/html
+        # links:
+        #     - wordpress
         restart: unless-stopped
         ports:
             - "443:443"
+        depends_on:
+            - wordpress
         networks:
             - inception_network
 
@@ -45,15 +45,15 @@ networks:
         driver: bridge
 
 volumes:
-    mysql:
-        driver: local
-        driver_opts:
-            type: none
-            device: ~/data/mysql
-            o: bind
-    wordpress:
-        driver: local
-        driver_opts:
-            type: none
-            device: ~/data/wordpress
-            o: bind
+    dbdata:
+        # driver: local
+        # driver_opts:
+        #     type: none
+        #     device: ~/data/mysql
+        #     o: bind
+    wpdata:
+        # driver: local
+        # driver_opts:
+        #     type: none
+        #     device: ~/data/wordpress
+        #     o: bind

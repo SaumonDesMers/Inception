@@ -5,8 +5,8 @@ RUN apt-get update -y &&\
 
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-RUN mkdir -p /var/www/html
-RUN chown -R 0777 /var/www/html/
+RUN mkdir -p /var/www/html &&\
+    chmod -R 777 /var/www/html
 
 RUN mkdir -p /etc/nginx/ssl/private &&\
     mkdir -p /etc/nginx/ssl/certs

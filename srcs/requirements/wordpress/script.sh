@@ -1,3 +1,5 @@
+cp /etc/nginx/wp-config.php .
+
 echo checkpoint 1
 wp core download --allow-root
 
@@ -9,7 +11,7 @@ do
 done
 
 echo checkpoint 3
-wp core install --url="sgaubert.42.fr" --title="inception de ces morts" --admin_user="root" --admin_password="root" --admin_email="root@root.root" --allow-root
+wp core install --url="localhost" --title="inception de ces morts" --admin_user="root" --admin_password="root" --admin_email="root@root.root" --allow-root
 
 echo checkpoint 4
 
