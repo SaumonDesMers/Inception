@@ -12,9 +12,9 @@
 
 
 /* MySQL settings */
-define( 'DB_NAME',     'inception' );
-define( 'DB_USER',     'sgaubert' );
-define( 'DB_PASSWORD', 'password' );
+define( 'DB_NAME',     getenv('DB_NAME') );
+define( 'DB_USER',     getenv('DB_USER_LOGIN') );
+define( 'DB_PASSWORD', getenv('DB_USER_PASSWORD') );
 define( 'DB_HOST',     'mysql' );
 define( 'DB_CHARSET',  'utf8mb4' );
 

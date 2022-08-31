@@ -2,10 +2,16 @@ SRC		= srcs/docker-compose.yml
 
 all:	up
 
-up:
+up:			dns
 			mkdir -p ~/data/mysql
 			mkdir -p ~/data/wordpress
 			docker-compose -f $(SRC) up --build
+
+dns:
+			@sudo sed -i "s/localhost/sgaubert.42.fr/g" /etc/hosts
+
+dns-reset:
+			@sudo sed -i "s/sgaubert.42.fr/localhost/g" /etc/hosts
 
 stop:
 			docker-compose -f $(SRC) stop
@@ -17,11 +23,11 @@ rm:		stop
 			docker-compose -f $(SRC) down
 			docker system prune -a
 
-re:		rm up
-
-fclean:
+fclean:	down
 		docker system prune -af
 		docker volume prune -f
 		rm -rf ~/data/
 
-.PHONY: all up stop rm
+re:		rm up
+
+.PHONY: all up stop rm fclean dns dns-reset down

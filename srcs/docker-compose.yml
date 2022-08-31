@@ -8,7 +8,7 @@ services:
             - dbdata:/var/lib/mysql
         env_file:
             - .env
-        restart: unless-stopped
+        restart: on-failure
         networks:
             - inception_network
 
@@ -21,18 +21,15 @@ services:
             - .env
         depends_on:
             - mysql
-        restart: unless-stopped
+        restart: on-failure
         networks:
             - inception_network
 
     nginx:
         build: ./requirements/nginx
         volumes:
-        #    - ./requirements/nginx:/etc/nginx/conf.d
             - wpdata:/var/www/html
-        # links:
-        #     - wordpress
-        restart: unless-stopped
+        restart: on-failure
         ports:
             - "443:443"
         depends_on:
