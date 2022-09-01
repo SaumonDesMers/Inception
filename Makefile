@@ -26,7 +26,7 @@ rm:		stop
 fclean:	down
 		docker system prune -af
 		docker volume prune -f
-		rm -rf ~/data/
+		sudo rm -rf ~/data/
 
 re:		rm up
 

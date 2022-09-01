@@ -8,11 +8,11 @@ RUN apt-get update -y &&\
 COPY www.conf /etc/php/7.3/fpm/pool.d
 
 RUN mkdir -p /var/run && \
-    mkdir /run/php && \
+    mkdir -p /run/php && \
     mkdir -p /var/www/html/
 
 COPY script.sh /etc/script.sh
-COPY wp-config.php /etc/nginx/
+COPY wp-config.php /
 
 # Wordpress-cli install guide :  https://make.wordpress.org/cli/handbook/guides/installing/
 
@@ -23,4 +23,4 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
 
 WORKDIR /var/www/html
 
-CMD [ "sh", "/etc/script.sh" ]
+CMD [ "bash", "/etc/script.sh" ]

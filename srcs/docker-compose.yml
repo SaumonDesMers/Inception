@@ -43,14 +43,14 @@ networks:
 
 volumes:
     dbdata:
-        # driver: local
-        # driver_opts:
-        #     type: none
-        #     device: ~/data/mysql
-        #     o: bind
+        driver: local
+        driver_opts:
+            type: none
+            device: ~/data/mysql
+            o: bind
     wpdata:
-        # driver: local
-        # driver_opts:
-        #     type: none
-        #     device: ~/data/wordpress
-        #     o: bind
+        driver: local
+        driver_opts:
+            type: none
+            device: ~/data/wordpress
+            o: bind
